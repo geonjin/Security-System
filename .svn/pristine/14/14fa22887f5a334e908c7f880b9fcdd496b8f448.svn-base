@@ -1,0 +1,53 @@
+package kr.or.project.board.controller;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.or.project.main.model.NoticeInfo;
+
+@Controller 
+public class BoardActionController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(BoardActionController.class);
+	
+	
+
+	@RequestMapping(value ="/board")
+	public ModelAndView board(HttpSession session, Locale locale, Model model) throws Exception{
+		
+		System.out.println("출입대장 페이지입니다.");
+		
+		List<NoticeInfo> mainResult = new ArrayList<NoticeInfo>();
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pageName", "작업 내역 작성 페이지 입니다.");
+		mv.setViewName( "/main/board");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value ="/boardRead")
+	public ModelAndView boardRead(HttpSession session, Locale locale, Model model) throws Exception{
+		
+		System.out.println("mainpage call!");
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pageName", "작업 내역 작성 페이지 입니다.");
+		mv.setViewName( "/main/boardRead");
+		
+		return mv;
+	}
+	
+}

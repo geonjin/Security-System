@@ -1,0 +1,86 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+
+	<!-- <meta charset="UTF-8">
+	<link href="/css/bootstrap.min.css" rel="stylesheet">
+	<title>write</title> -->
+
+	<jsp:include page="../header/head.jsp"></jsp:include>
+
+<style>
+	body {
+	
+	  padding-bottom: 30px;
+	
+	}
+	#box1 {
+            margin:0px 0px 0px 20px;
+        }
+</style>
+</head>
+<body>
+
+	<!-- <nav id="navbar-example2" class="navbar bg-light px-3 mb-3">
+     <a class="navbar-brand" href="/home">홈</a>
+     <ul class="nav nav-pills">
+     
+     <li class="nav-item">
+         <a class="nav-link" href="/photoClick">정보입력</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/board">게시판</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/chartboard">출입현황판</a>
+       </li>
+       <li class="nav-item">
+         <a class="nav-link" href="/mngrBbs">관리자 게시판</a>
+       </li>
+        <li class="nav-item">
+         <a class="nav-link" href="/cmgStatus">출입 현황판</a>
+       </li>
+     </ul>
+   </nav> -->
+   
+   <jsp:include page="../header/nav.jsp"></jsp:include>
+   
+   <article>
+
+		<div class="container" role="main">
+
+			<h2>글쓰기</h2>
+
+			<form name="form" id="form" role="form" method="post" action="${pageContext.request.contextPath}/board/saveBoard">
+
+				<div class="mb-3">
+					<label for="title">제목</label>
+					<input type="text" class="form-control" name="title" id="title" placeholder="제목을 입력해 주세요">
+				</div>
+
+				<div class="mb-3">
+					<label for="reg_id">작성자</label>
+					<input type="text" class="form-control" name="reg_id" id="reg_id" placeholder="이름을 입력해 주세요">
+				</div>
+
+				<div class="mb-3">
+					<label for="content">내용</label>
+					<textarea class="form-control" rows="5" name="content" id="content" placeholder="내용을 입력해 주세요" ></textarea>
+				</div>
+				<div id="box1">
+					<input class="form-check-input" type="checkbox" id="checkboxNoLabel"  value="" aria-label="...">
+					<label for="tag">공지사항 여부</label>
+				</div>
+			</form>
+
+			<div >
+				<button type="button" onclick="location.href='/mngrBbs' " class="btn btn-sm btn-primary" id="btnSave">저장</button>
+				<button type="button" onclick="location.href='/mngrBbs' " class="btn btn-sm btn-primary" id="btnList">취소</button>
+			</div>
+		</div>
+	</article>
+	
+</body>
+</html>

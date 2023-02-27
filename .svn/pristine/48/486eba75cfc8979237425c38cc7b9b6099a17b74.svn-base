@@ -1,0 +1,19 @@
+package kr.or.project.mapper;
+
+import java.util.List;
+
+import kr.or.project.annotation.MariaDbMapper;
+import kr.or.project.main.model.CmgRegstr;
+import kr.or.project.main.model.NoticeInfo;
+
+@MariaDbMapper
+public interface MainMapper {
+	
+//	public List<NoticeInfo> selectMainInfo(NoticeInfo noticeInfo) throws Exception;
+	
+	public int insertCmgRegstr(CmgRegstr cmgRegstrParam);
+	public int insertNoticeInfo(NoticeInfo noticeInfoParam);
+	public CmgRegstr selectCmgRegstr(int idx);
+	public NoticeInfo selectNoticeInfo(int idx);
+	
+}

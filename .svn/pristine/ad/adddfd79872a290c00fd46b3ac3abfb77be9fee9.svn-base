@@ -1,0 +1,16 @@
+package kr.or.project.main.service;
+
+import java.util.List;
+
+import kr.or.project.main.model.CmgRegstr;
+import kr.or.project.main.model.NoticeInfo;
+
+public interface MainService {
+	
+//	public List<NoticeInfo> selectMainInfo(NoticeInfo noticeInfo);
+	public int insertCmgRegstr(CmgRegstr cmgRegstrParam);
+	public int insertNoticeInfo(NoticeInfo noticeInfo);
+	public CmgRegstr selectCmgRegstr(int idx);
+	public NoticeInfo selectNoticeInfo(int idx);
+	
+}

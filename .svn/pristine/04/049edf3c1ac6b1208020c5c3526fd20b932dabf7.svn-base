@@ -1,0 +1,22 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+
+<jsp:include page="../header/head.jsp"></jsp:include>
+
+<title>Insert title here</title>
+</head>
+<body>
+<jsp:include page="../header/nav.jsp"></jsp:include>
+
+<%-- 
+<video>
+	<source src="<%="http://192.168.35.33:8081/" %> type="video/mp4"/>
+</video> --%>
+
+	<a href="http://192.168.35.33:8081/">눌러</a>
+</body>
+</html>

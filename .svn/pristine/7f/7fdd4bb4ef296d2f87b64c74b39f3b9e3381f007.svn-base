@@ -1,0 +1,201 @@
+package kr.or.project.main.controller;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
+
+import kr.or.project.main.model.CmgRegstr;
+import kr.or.project.main.model.NoticeInfo;
+import kr.or.project.main.service.MainService;
+
+@Controller 
+public class MainActionController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(MainActionController.class);
+
+	@Autowired //interface랑 연결 (상속받은 mainserviceimp 로 연결됨)
+	MainService mainService;
+	
+	@RequestMapping(value = {"/","/home"})
+	public ModelAndView home(HttpSession session, Locale locale, Model model) throws Exception{
+		
+		System.out.println("mainpage call!");
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pageName", "검색어 테스트 페이지 입니다.");
+		mv.setViewName( "/main/home");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/photoClick")
+	public ModelAndView photoClick(HttpSession session, Locale locale, Model model) throws Exception{
+		
+		System.out.println("mainpage call!");
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pageName", "검색어 테스트 페이지 입니다.");
+		mv.setViewName( "/main/photoClick");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "/mngrBbs")
+	public ModelAndView mngrBbs(HttpSession session, Locale locale, Model model) throws Exception{
+		
+		System.out.println("mainpage call!");
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pageName", "검색어 테스트 페이지 입니다.");
+		
+		List<NoticeInfo> mainResult = new ArrayList<NoticeInfo>();
+		// List<NoticeInfo> mainResult = mainService.selectMainInfo(noticeParam);
+		
+		for(int i = 1; i <= 6; i++) {
+			NoticeInfo noticeInfo = new NoticeInfo();
+			noticeInfo.setCn( i + "번째 내용부분 입니다.");
+			noticeInfo.setSj( i + "번째 제목부분 입니다.");
+			noticeInfo.setFixingAt( i + "번째 고정 여부 입니다.");
+			noticeInfo.setRegister("홍길동"+i);
+			noticeInfo.setUpdusr("홍길동"+i);
+			mainResult.add(noticeInfo);
+		}
+		
+		mv.addObject( "mainResult", mainResult);
+		
+		mv.setViewName( "/main/mngrBbs");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "write")
+	public ModelAndView write(HttpSession session, Locale locale, Model model) throws Exception{
+		
+		System.out.println("mainpage call!");
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pageName", "검색어 테스트 페이지 입니다.");
+		mv.setViewName( "/main/write");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value = "cmgStatus")
+	public ModelAndView cmgStatus(HttpSession session, Locale locale, Model model) throws Exception{
+		
+		System.out.println("mainpage call!");
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pageName", "검색어 테스트 페이지 입니다.");
+		mv.setViewName( "/main/cmgStatus");
+		
+		return mv;
+	}
+	
+	@RequestMapping(value =  "/mainContentView.do")
+	public ModelAndView mainContentView(HttpSession session, Locale locale, Model model) throws Exception{
+		
+		System.out.println("mainpage call!");
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pageName", "검색어 테스트 페이지 입니다.");
+		mv.setViewName( "/main/mainList");
+		
+		return mv;
+	}
+	
+//	@RequestMapping(value = "/main/getMainInfos.do")
+//	@ResponseBody //비동기로 작동하려면 해당 어노테이션 추가해야됨 (ajax)
+//	public Map getMainInfos(HttpServletRequest request, Model model, @RequestBody NoticeInfo noticeParam) throws Exception{
+//		
+//		Map<String, Object> rMap = new HashMap<String, Object>();
+//		
+//		List<NoticeInfo> mainResult = mainService.selectMainInfo(noticeParam);
+//		
+//		rMap.put("mainResult", mainResult);
+//		
+//		return rMap;
+//	}
+	
+	@RequestMapping(value = "/main/delMainInfo.do")
+	@ResponseBody
+	public Map<String, Object> delMainInfo(HttpServletRequest request, Model model, @RequestBody NoticeInfo noticeInfo) throws Exception {
+
+		Map<String, Object> resultMap = new HashMap<String, Object>();
+
+		return resultMap;
+	}
+	
+	@RequestMapping(value = "/mainList2.do")
+	public ModelAndView mainList2(HttpSession session, Locale locale, Model model) throws Exception{
+		
+		System.out.println("mainpage call!");
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pageName", "검색어 테스트 페이지 입니다.");
+		mv.setViewName( "/main/mainList2");
+		
+		return mv;
+		
+	}
+
+	@RequestMapping(value = "/mainList3.do")
+	public ModelAndView mainList3(HttpSession session, Locale locale, Model model) throws Exception{
+		
+		System.out.println("mainpage call!");
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.addObject("pageName", "검색어 테스트 페이지 입니다.");
+		mv.setViewName( "/main/mainList3");
+		
+		return mv;
+	}
+
+
+		
+	@RequestMapping(value = "/cmg/insertCmgRegstr.do")
+	@ResponseBody //비동기로 작동하려면 해당 어노테이션 추가해야됨 (ajax)
+	public Map insertCmgRegstr(HttpServletRequest request, Model model, @RequestBody CmgRegstr cmgRegstrParam) throws Exception{
+		
+		Map<String, Object> rMap = new HashMap<String, Object>();
+		
+		System.out.println("cmgRegstrParam :: " + cmgRegstrParam);
+		
+		System.out.println("성명 : " + cmgRegstrParam.getCgpnNm());
+		System.out.println("나간 시간 : " + cmgRegstrParam.getComingTm());
+		System.out.println("들어온 시간 : " + cmgRegstrParam.getGoingTm());
+		System.out.println("작업 내역 : " + cmgRegstrParam.getWrDtls());
+		
+		// int result = cmgRegstrService.insertCmgRegstr(cmgRegstrParam);
+		int result = mainService.insertCmgRegstr(cmgRegstrParam);
+		System.out.println("result :: " + result);
+		
+		rMap.put("result", result);
+		
+		return rMap;
+	}
+	
+}

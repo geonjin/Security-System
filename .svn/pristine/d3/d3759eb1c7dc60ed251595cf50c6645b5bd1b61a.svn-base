@@ -1,0 +1,249 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="kr.or.project.mapper.MainMapper" >
+
+	<!-- <select id="selectMainInfo" parameterType="kr.or.project.main.model.MainInfo" resultType="String">
+ 		 SELECT 
+ 		 	NOW(),
+ 		 	TO_CHAR(SYSDATE,'YYYY-MM-DD'),
+ 		 	from dual
+ 	</select> -->
+ 	
+<!--  	<select id="selectMainInfo" parameterType="kr.or.project.main.model.MainInfo" resultType="kr.or.project.main.model.MainInfo"> -->
+<!--  		 SELECT  -->
+<!--  		 	'홍길동' as mberNm, -->
+<!-- 		 	'홍길동 ID' as mberId -->
+<!-- 		   FROM DUAL -->
+<!--  	</select> -->
+ 	
+ 	<select id="selectMainInfo" parameterType="kr.or.project.main.model.NoticeInfo" resultType="kr.or.project.main.model.NoticeInfo">
+ 		SELECT 
+		       A.NOTICE_ID noticeId, 
+		       A.NOTICE_SE noticeSe, 
+		       A.NOTICE_SJ noticeSj, 
+		       A.NOTICE_CN noticeCn, 
+		       A.ATCHMNFL atchmnfl,
+		       NVL(A.RDCNT,0) rdcnt,
+		       A.DELETE_AT deleteAt, 
+		       A.REGIST_DT registDt, 
+		       A.REGISTER register, 
+		       A.UPDT_DT updtDt, 
+		       A.UPDUSR updusr
+		  FROM NOTICE_INFO A
+		 WHERE 1 = 1
+		<if test="noticeId != null and noticeId != ''">
+		   AND A.NOTICE_ID = #{noticeId}
+		</if>
+		<if test='noticeSj != null and noticeSj != ""'>
+		   AND A.NOTICE_SJ LIKE CONCAT('%',#{noticeSj},'%')
+		</if>
+		<if test='noticeCn != null and noticeCn != ""'>
+		   AND A.NOTICE_CN LIKE CONCAT('%',#{noticeCn},'%')
+		</if>
+		<if test='noticeSe != null and noticeSe != ""'>
+		   AND A.NOTICE_SE LIKE CONCAT('%',#{noticeSe},'%')
+		</if>
+		   AND A.DELETE_AT = 'N'
+ 	</select>
+ 	
+ 	<update id="updateCmgRegstr" parameterType="kr.or.project.main.model.CmgRegstr">
+ 	UPDATE 
+ 		CMG_REGSTR 
+ 	SET 
+ 		WR_DTLS = #{wrDtls}, CGPN_NM = #{cgpnNm}
+ 	WHERE 
+ 		IDX = #{idx}	
+ 	</update>
+ 
+ 	<update id="updateGoingTm" parameterType="String">
+ 	UPDATE 
+		CMG_REGSTR
+	SET 
+		GOING_TM = #{goingTm}
+	ORDER BY
+		IDX DESC LIMIT 1;
+	</update>
+ 
+ 	<update id="updateNoticeInfo" parameterType="kr.or.project.main.model.NoticeInfo">
+ 	UPDATE 
+ 		NOTICE_INFO
+ 	SET 
+ 		SJ = #{sj}, REGISTER = #{register}, CN = #{cn}, FIXING_AT = #{fixingAt}, UPDT_DT = #{updtDt}
+ 	WHERE 
+ 		IDX = #{idx}	
+ 	</update>
+ 	
+ 	<select id="selectHomeNoticeInfo" resultType="kr.or.project.main.model.NoticeInfo">
+ 		SELECT
+ 			IDX idx,
+ 			SJ sj,
+			CN cn,
+			FIXING_AT fixingAt,
+			REGIST_DT registDt,
+			REGISTER register,
+			UPDT_DT	updtDt,
+			UPDUSR updusr
+ 		FROM
+ 			NOTICE_INFO
+ 		WHERE 
+ 			FIXING_AT='T' 
+ 		ORDER BY 
+ 			IDX DESC 
+ 		LIMIT 5
+ 	</select>
+ 	
+ 	<select id="selectHomeCmgRegstr" resultType="kr.or.project.main.model.CmgRegstr">
+ 		SELECT
+ 			IDX idx,
+			CGPN_NM	 cgpnNm,
+			COMING_TM comingTm,
+ 			GOING_TM goingTm,
+ 			WR_DTLS wrDtls,
+			CGPN_PHOTO cgpnPhoto,
+			REGIST_DT registDt,
+			REGISTER register,
+			UPDT_DT updateDt,
+			UPDUSR updusr
+ 		FROM
+ 			CMG_REGSTR
+ 		ORDER BY
+ 			IDX DESC
+ 		LIMIT 3
+ 	</select>
+ 	
+ 	
+ 		<select id="selectAllNoticeInfo" resultType="kr.or.project.main.model.NoticeInfo">
+ 		SELECT
+ 			IDX idx,
+ 			SJ sj,
+			CN cn,
+			FIXING_AT fixingAt,
+			REGIST_DT registDt,
+			REGISTER register,
+			UPDT_DT	updtDt,
+			UPDUSR updusr
+ 		FROM
+ 			NOTICE_INFO
+ 	</select>
+ 	
+ 	
+ 	
+ 	<select id="selectAllCmgRegstr" resultType="kr.or.project.main.model.CmgRegstr">
+ 		SELECT
+ 			IDX idx,
+			CGPN_NM	 cgpnNm,
+			COMING_TM comingTm,
+ 			GOING_TM goingTm,
+ 			WR_DTLS wrDtls,
+			CGPN_PHOTO cgpnPhoto,
+			REGIST_DT registDt,
+			REGISTER register,
+			UPDT_DT updateDt,
+			UPDUSR updusr
+ 		FROM
+ 			CMG_REGSTR
+ 	</select>
+ 	
+ 	<select id="selectCmgRegstr" parameterType="int" resultType="kr.or.project.main.model.CmgRegstr">
+ 		SELECT
+ 			CGPN_NM cgpnNm,
+ 			COMING_TM comingTm,
+ 			GOING_TM goingTm,
+ 			WR_DTLS wrDtls,
+			CGPN_PHOTO cgpnPhoto
+ 		FROM
+ 			CMG_REGSTR
+ 		WHERE
+ 			IDX = #{idx}
+ 		
+ 	</select>
+ 	
+ 	<select id="selectNoticeInfo" parameterType="int" resultType="kr.or.project.main.model.NoticeInfo">
+ 		SELECT
+ 			SJ sj,
+			CN cn,
+			FIXING_AT fixingAt,
+			REGISTER register,
+			REGIST_DT registdt
+ 		FROM
+ 			NOTICE_INFO
+ 		WHERE
+ 			IDX = #{idx}
+ 		
+ 	</select>
+ 	
+ 	<select id="selectDailyCmgSttus" parameterType="String" resultType="kr.or.project.main.model.DailyCmgSttus">
+ 		SELECT
+ 			CMG_DT cmgDt,
+ 			CMG_CO cmgCo,
+ 			REGIST_DT registDt,
+ 			UPDT_DT updtDt
+		FROM
+ 			DAILY_CMG_STTUS
+ 		WHERE
+ 			CMG_DT = #{daily}
+ 		
+ 	</select>
+ 	
+ 	<select id="selectMonthCmgSttus" parameterType="String" resultType="kr.or.project.main.model.MonthCmgSttus">
+ 		SELECT 
+ 			CONCAT(YEAR(CMG_DT), '-', MONTH(CMG_DT)) AS ym, SUM(CMG_CO) AS ymAvg
+   		FROM 
+   			daily_cmg_sttus
+   		WHERE
+			YEAR(CMG_DT) = 2023
+    	GROUP BY ym;
+    
+ 	</select>
+ 	
+ 	
+ 	<!-- 출입대장 수정 - 데이터 넣기 -->
+ 	<insert id="insertCmgRegstr" parameterType="kr.or.project.main.model.CmgRegstr">
+ 		INSERT INTO CMG_REGSTR (
+ 			COMING_TM,
+ 			CGPN_PHOTO,
+ 			REGIST_DT,
+ 			REGISTER
+ 		) values (
+ 			#{comingTm},
+ 			#{cgpnPhoto},
+ 			#{registdt},
+ 			#{register}
+ 		)
+ 	</insert>
+ 	
+ 	
+ 	<!-- 관리자 게시판 글쓰기 - 데이터 넣기 -->
+ 	<insert id="insertNoticeInfo" parameterType="kr.or.project.main.model.NoticeInfo">
+ 		INSERT INTO NOTICE_INFO (
+ 			SJ,
+ 			CN,
+ 			FIXING_AT,
+ 			REGISTER,
+ 			REGIST_DT,
+ 			UPDT_DT
+ 		) values (
+ 			#{sj},
+ 			#{cn},
+ 			#{fixingAt},
+ 			#{register},
+ 			#{registdt},
+ 			#{updtDt}
+ 		)
+ 	</insert>
+ 	
+ 	<insert id="insertDailyCmgSttus" parameterType="kr.or.project.main.model.DailyCmgSttus">
+ 		INSERT INTO DAILY_CMG_STTUS (
+ 			CMG_DT,
+ 			CMG_CO,
+ 			REGIST_DT,
+ 			UPDT_DT
+ 		) values (
+ 			#{cmgDt},
+ 			#{cmgCo},
+ 			#{registDt},
+ 			#{updtDt}
+ 		) ON DUPLICATE KEY UPDATE CMG_CO = CMG_CO + 1
+ 	</insert>
+</mapper>
