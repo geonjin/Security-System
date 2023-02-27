@@ -1,0 +1,36 @@
+CREATE DATABASE SECURITY;
+
+USE SECURITY;
+
+CREATE TABLE CMG_REGSTR(
+IDX INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+CGPN_NM	 varchar(10),
+COMING_TM datetime,
+GOING_TM datetime,
+WR_DTLS	 varchar(1000),
+CGPN_PHOTO varchar(100),
+REGIST_DT datetime,
+REGISTER varchar(10),
+UPDT_DT datetime,
+UPDUSR varchar(10)
+);
+
+
+CREATE TABLE NOTICE_INFO(
+IDX INT AUTO_INCREMENT NOT NULL PRIMARY KEY,
+SJ varchar(100),
+CN varchar(1000),
+FIXING_AT varchar(1),
+REGIST_DT datetime,
+REGISTER varchar(10),
+UPDT_DT	datetime,
+UPDUSR varchar(10)
+);
+
+
+CREATE TABLE DAILY_CMG_STTUS(
+CMG_DT date primary key,
+CMG_CO int,
+REGIST_DT datetime,
+UPDT_DT datetime
+);
